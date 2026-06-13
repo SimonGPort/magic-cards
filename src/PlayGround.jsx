@@ -10,7 +10,7 @@ function BattleGround() {
     "https://cards.scryfall.io/small/front/b/d/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd.jpg?1614638838";
 
   const imageTestNormal =
-    "https://cards.scryfall.io/normal/front/9/4/942cf220-472c-48f6-8f60-993939ea5ab8.jpg?1562055436";
+    "https://cards.scryfall.io/normal/front/b/d/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd.jpg?1614638838";
 
   return (
     <>
