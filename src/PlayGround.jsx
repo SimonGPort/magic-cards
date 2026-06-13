@@ -38,6 +38,10 @@ function BattleGround() {
     );
   };
 
+  const deleteCard = (id) => {
+    setCards((prev) => prev.filter((card, index) => index !== id));
+  };
+
   return (
     <>
       {Modal && <PopUp image={Modal} onClose={() => setModal(undefined)} />}
@@ -66,6 +70,7 @@ function BattleGround() {
             updateCard={(x, y, newRotation) =>
               updateCard(id, x, y, newRotation)
             }
+            deleteCard={() => deleteCard(id)}
             popUp={(image) => setModal(image)}
             imageCardSmall={card.imageCardSmall}
             imageCardNormal={card.imageCardNormal}

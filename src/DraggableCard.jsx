@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 export default function DraggableCard({
+  deleteCard,
   rotation,
   id,
   imageCardSmall,
@@ -12,8 +13,6 @@ export default function DraggableCard({
 }) {
   const [dragging, setDragging] = useState(false);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
-
-  const [show, setShow] = useState(true);
 
   useEffect(() => {
     const handleMove = (e) => {
@@ -72,89 +71,87 @@ export default function DraggableCard({
   };
 
   return (
-    show && (
-      <>
-        <div
-          style={{
-            position: "absolute",
-            left: posX,
-            top: posY,
-            cursor: dragging ? "grabbing" : "grab",
-            transform: `rotate(${rotation}deg)`,
-            zIndex: dragging ? 999 : 1,
-          }}
-        >
-          {/* DRAG AREA */}
-          <div onMouseDown={handleMouseDown}>
-            {/* Top-left controls */}
+    <>
+      <div
+        style={{
+          position: "absolute",
+          left: posX,
+          top: posY,
+          cursor: dragging ? "grabbing" : "grab",
+          transform: `rotate(${rotation}deg)`,
+          zIndex: dragging ? 999 : 1,
+        }}
+      >
+        {/* DRAG AREA */}
+        <div onMouseDown={handleMouseDown}>
+          {/* Top-left controls */}
+          <div
+            style={{
+              position: "absolute",
+              top: -2,
+              left: 4,
+              display: "flex",
+              gap: 10,
+              zIndex: 10,
+            }}
+          >
             <div
+              onClick={() => deleteCard()}
               style={{
-                position: "absolute",
-                top: -2,
-                left: 4,
-                display: "flex",
-                gap: 10,
-                zIndex: 10,
+                width: 10,
+                height: 10,
+                borderRadius: "50%",
+                backgroundColor: "red",
+                cursor: "pointer",
               }}
-            >
-              <div
-                onClick={() => setShow(false)}
-                style={{
-                  width: 10,
-                  height: 10,
-                  borderRadius: "50%",
-                  backgroundColor: "red",
-                  cursor: "pointer",
-                }}
-              />
+            />
 
-              <div
-                onClick={(e) => {
-                  e.stopPropagation();
-                  popUp(imageCardNormal);
-                }}
-                style={{
-                  width: 10,
-                  height: 10,
-                  borderRadius: "50%",
-                  backgroundColor: "yellow",
-                  cursor: "pointer",
-                }}
-              />
+            <div
+              onClick={(e) => {
+                e.stopPropagation();
+                popUp(imageCardNormal);
+              }}
+              style={{
+                width: 10,
+                height: 10,
+                borderRadius: "50%",
+                backgroundColor: "yellow",
+                cursor: "pointer",
+              }}
+            />
 
-              <div
-                onClick={(e) => {
-                  e.stopPropagation();
-                  rotateCard();
-                }}
-                style={{
-                  width: 10,
-                  height: 10,
-                  borderRadius: "50%",
-                  backgroundColor: "green",
-                  cursor: "pointer",
-                }}
-              />
+            <div
+              onClick={(e) => {
+                e.stopPropagation();
+                rotateCard();
+              }}
+              style={{
+                width: 10,
+                height: 10,
+                borderRadius: "50%",
+                backgroundColor: "green",
+                cursor: "pointer",
+              }}
+            />
 
-              <div
-                onClick={(e) => {
-                  e.stopPropagation();
-                  unTap();
-                }}
-                style={{
-                  width: 10,
-                  height: 10,
-                  borderRadius: "50%",
-                  backgroundColor: "blue",
-                  cursor: "pointer",
-                }}
-              />
-            </div>
-
-            <img src={imageCardSmall} alt="Magic Card" draggable={false} />
+            <div
+              onClick={(e) => {
+                e.stopPropagation();
+                unTap();
+              }}
+              style={{
+                width: 10,
+                height: 10,
+                borderRadius: "50%",
+                backgroundColor: "blue",
+                cursor: "pointer",
+              }}
+            />
           </div>
+
+          <img src={imageCardSmall} alt="Magic Card" draggable={false} />
         </div>
-      </>
-    )
+      </div>
+    </>
   );
 }
