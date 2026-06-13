@@ -54,6 +54,25 @@ function BattleGround() {
     setCards((prev) => prev.filter((card, index) => index !== id));
   };
 
+  const changeZone = (id) => {
+    setCards((prev) =>
+      prev.map((card, index) => {
+        if (index !== id) return card;
+
+        const newZone = card.zone === "play" ? "hand" : "play";
+
+        return {
+          ...card,
+          zone: newZone,
+          posY:
+            newZone === "hand"
+              ? window.innerHeight / 2 + 120
+              : window.innerHeight / 3,
+        };
+      }),
+    );
+  };
+
   return (
     <>
       {Modal && <PopUp image={Modal} onClose={() => setModal(undefined)} />}
@@ -78,6 +97,7 @@ function BattleGround() {
         if (card.zone !== "play") return;
         return (
           <DraggableCard
+            changeZone={() => changeZone(id)}
             zone={card.zone}
             key={id}
             id={id}
@@ -101,6 +121,7 @@ function BattleGround() {
             if (card.zone !== "hand") return;
             return (
               <DraggableCard
+                changeZone={() => changeZone(id)}
                 zone={card.zone}
                 style={{ zIndex: 12 }}
                 key={id}

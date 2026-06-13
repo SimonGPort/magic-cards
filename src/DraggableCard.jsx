@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 export default function DraggableCard({
   zone,
+  changeZone,
   deleteCard,
   rotation,
   id,
@@ -103,6 +104,20 @@ export default function DraggableCard({
                 height: 10,
                 borderRadius: "50%",
                 backgroundColor: "red",
+                cursor: "pointer",
+              }}
+            />
+
+            <div
+              onClick={(e) => {
+                e.stopPropagation();
+                changeZone();
+              }}
+              style={{
+                width: 10,
+                height: 10,
+                borderRadius: "50%",
+                backgroundColor: "orange",
                 cursor: "pointer",
               }}
             />
