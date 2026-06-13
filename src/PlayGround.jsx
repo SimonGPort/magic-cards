@@ -8,12 +8,20 @@ function BattleGround() {
 
   const imageTestNormal =
     "https://cards.scryfall.io/normal/front/9/4/942cf220-472c-48f6-8f60-993939ea5ab8.jpg?1562055436";
+
   return (
     <>
-      <div>BattleGround</div>
       <DraggableCard
         imageCardSmall={imageTestSmall}
         imageCardNormal={imageTestNormal}
+        startX={100}
+        startY={100}
+      />
+      <DraggableCard
+        imageCardSmall={imageTestSmall}
+        imageCardNormal={imageTestNormal}
+        startX={300}
+        startY={300}
       />
     </>
   );

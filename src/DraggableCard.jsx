@@ -1,13 +1,44 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PopUp from "./PopUp";
 
-export default function DraggableCard({ imageCardSmall, imageCardNormal }) {
-  const [position, setPosition] = useState({ x: 100, y: 100 });
+export default function DraggableCard({
+  imageCardSmall,
+  imageCardNormal,
+  startX,
+  startY,
+}) {
+  const [position, setPosition] = useState(() => ({
+    x: startX,
+    y: startY,
+  }));
   const [dragging, setDragging] = useState(false);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [rotation, setRotation] = useState(0);
   const [Modal, setModal] = useState(false);
   const [show, setShow] = useState(true);
+
+  useEffect(() => {
+    const handleMove = (e) => {
+      if (!dragging) return;
+
+      setPosition({
+        x: e.clientX - offset.x,
+        y: e.clientY - offset.y,
+      });
+    };
+
+    const handleUp = () => {
+      setDragging(false);
+    };
+
+    window.addEventListener("mousemove", handleMove);
+    window.addEventListener("mouseup", handleUp);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMove);
+      window.removeEventListener("mouseup", handleUp);
+    };
+  }, [dragging, offset]);
 
   const rotateCard = () => {
     switch (rotation) {
@@ -34,6 +65,7 @@ export default function DraggableCard({ imageCardSmall, imageCardNormal }) {
 
   const handleMouseDown = (e) => {
     setDragging(true);
+
     setOffset({
       x: e.clientX - position.x,
       y: e.clientY - position.y,
@@ -57,32 +89,21 @@ export default function DraggableCard({ imageCardSmall, imageCardNormal }) {
     show && (
       <>
         <div
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
           style={{
-            width: "100vw",
-            height: "100vh",
-            position: "relative",
+            position: "absolute",
+            left: position.x,
+            top: position.y,
+            cursor: dragging ? "grabbing" : "grab",
+            transform: `rotate(${rotation}deg)`,
+            zIndex: dragging ? 999 : 1,
           }}
         >
           {Modal && (
-            <PopUp
-              image={imageCardNormal}
-              onClose={() => {
-                setModal(false);
-              }}
-            />
+            <PopUp image={imageCardNormal} onClose={() => setModal(false)} />
           )}
-          <div
-            onMouseDown={handleMouseDown}
-            style={{
-              position: "absolute",
-              left: position.x,
-              top: position.y,
-              cursor: dragging ? "grabbing" : "grab",
-              transform: `rotate(${rotation}deg)`,
-            }}
-          >
+
+          {/* DRAG AREA */}
+          <div onMouseDown={handleMouseDown}>
             {/* Top-left controls */}
             <div
               style={{
@@ -106,6 +127,10 @@ export default function DraggableCard({ imageCardSmall, imageCardNormal }) {
               />
 
               <div
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setModal(true);
+                }}
                 style={{
                   width: 10,
                   height: 10,
@@ -113,13 +138,13 @@ export default function DraggableCard({ imageCardSmall, imageCardNormal }) {
                   backgroundColor: "yellow",
                   cursor: "pointer",
                 }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setModal(true);
-                }}
               />
 
               <div
+                onClick={(e) => {
+                  e.stopPropagation();
+                  rotateCard();
+                }}
                 style={{
                   width: 10,
                   height: 10,
@@ -127,22 +152,19 @@ export default function DraggableCard({ imageCardSmall, imageCardNormal }) {
                   backgroundColor: "green",
                   cursor: "pointer",
                 }}
+              />
+
+              <div
                 onClick={(e) => {
                   e.stopPropagation();
-                  rotateCard();
+                  unTap();
                 }}
-              />
-              <div
                 style={{
                   width: 10,
                   height: 10,
                   borderRadius: "50%",
                   backgroundColor: "blue",
                   cursor: "pointer",
-                }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  unTap();
                 }}
               />
             </div>
