@@ -3,12 +3,18 @@ import DraggableCard from "./DraggableCard";
 import "./App.css";
 
 function BattleGround() {
-  const imageTest =
+  const imageTestSmall =
     "https://cards.scryfall.io/small/front/9/4/942cf220-472c-48f6-8f60-993939ea5ab8.jpg?1562055436";
+
+  const imageTestNormal =
+    "https://cards.scryfall.io/normal/front/9/4/942cf220-472c-48f6-8f60-993939ea5ab8.jpg?1562055436";
   return (
     <>
       <div>BattleGround</div>
-      <DraggableCard imageCardSmall={imageTest} />
+      <DraggableCard
+        imageCardSmall={imageTestSmall}
+        imageCardNormal={imageTestNormal}
+      />
     </>
   );
 }
