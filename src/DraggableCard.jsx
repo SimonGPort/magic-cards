@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function DraggableCard() {
+export default function DraggableCard({ imageCardSmall }) {
   const [position, setPosition] = useState({ x: 100, y: 100 });
   const [dragging, setDragging] = useState(false);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
@@ -45,11 +45,7 @@ export default function DraggableCard() {
           cursor: dragging ? "grabbing" : "grab",
         }}
       >
-        <img
-          src="https://cards.scryfall.io/small/front/9/4/942cf220-472c-48f6-8f60-993939ea5ab8.jpg?1562055436"
-          alt="Magic Card"
-          draggable={false}
-        />
+        <img src={imageCardSmall} alt="Magic Card" draggable={false} />
       </div>
     </div>
   );
