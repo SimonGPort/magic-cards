@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 export default function DraggableCard({
+  rotation,
   id,
   imageCardSmall,
   imageCardNormal,
@@ -10,7 +11,6 @@ export default function DraggableCard({
   updateCard,
 }) {
   const [dragging, setDragging] = useState(false);
-  const [rotation, setRotation] = useState(0);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
 
   const [show, setShow] = useState(true);
@@ -38,24 +38,24 @@ export default function DraggableCard({
   const rotateCard = () => {
     switch (rotation) {
       case 0:
-        setRotation(90);
+        updateCard(posX, posY, 90);
         break;
       case 90:
-        setRotation(180);
+        updateCard(posX, posY, 180);
         break;
       case 180:
-        setRotation(270);
+        updateCard(posX, posY, 270);
         break;
       case 270:
-        setRotation(0);
+        updateCard(posX, posY, 0);
         break;
       default:
-        setRotation(0);
+        updateCard(posX, posY, 0);
     }
   };
 
   const unTap = () => {
-    setRotation(0);
+    updateCard(posX, posY, 0);
   };
 
   const handleMouseDown = (e) => {

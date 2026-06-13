@@ -15,6 +15,7 @@ function BattleGround() {
         "https://cards.scryfall.io/normal/front/b/d/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd.jpg?1614638838",
       posX: 100,
       posY: 100,
+      rotation: 0,
     },
     {
       imageCardSmall:
@@ -23,13 +24,16 @@ function BattleGround() {
         "https://cards.scryfall.io/normal/front/b/d/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd.jpg?1614638838",
       posX: 300,
       posY: 300,
+      rotation: 0,
     },
   ]);
 
-  const updateCard = (id, x, y) => {
+  const updateCard = (id, x, y, newRotation) => {
     setCards((prevCards) =>
       prevCards.map((card, index) =>
-        index === id ? { ...card, posX: x, posY: y } : card,
+        index === id
+          ? { ...card, posX: x, posY: y, rotation: newRotation }
+          : card,
       ),
     );
   };
@@ -57,13 +61,17 @@ function BattleGround() {
       {Cards.map((card, id) => {
         return (
           <DraggableCard
+            key={id}
             id={id}
-            updateCard={(x, y) => updateCard(id, x, y)}
+            updateCard={(x, y, newRotation) =>
+              updateCard(id, x, y, newRotation)
+            }
             popUp={(image) => setModal(image)}
             imageCardSmall={card.imageCardSmall}
             imageCardNormal={card.imageCardNormal}
             posX={card.posX}
             posY={card.posY}
+            rotation={card.rotation}
           />
         );
       })}
