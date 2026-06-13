@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 export default function DraggableCard({
+  zone,
   deleteCard,
   rotation,
   id,
@@ -79,7 +80,7 @@ export default function DraggableCard({
           top: posY,
           cursor: dragging ? "grabbing" : "grab",
           transform: `rotate(${rotation}deg)`,
-          zIndex: dragging ? 999 : 1,
+          zIndex: dragging ? 999 : zone === "play" ? 1 : 12,
         }}
       >
         {/* DRAG AREA */}

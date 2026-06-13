@@ -16,6 +16,7 @@ function BattleGround() {
       posX: 100,
       posY: 100,
       rotation: 0,
+      zone: "play",
     },
     {
       imageCardSmall:
@@ -25,6 +26,17 @@ function BattleGround() {
       posX: 300,
       posY: 300,
       rotation: 0,
+      zone: "play",
+    },
+    {
+      imageCardSmall:
+        "https://cards.scryfall.io/small/front/b/d/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd.jpg?1614638838",
+      imageCardNormal:
+        "https://cards.scryfall.io/normal/front/b/d/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd.jpg?1614638838",
+      posX: 100,
+      posY: 550,
+      rotation: 0,
+      zone: "hand",
     },
   ]);
 
@@ -63,8 +75,10 @@ function BattleGround() {
         }}
       />
       {Cards.map((card, id) => {
+        if (card.zone !== "play") return;
         return (
           <DraggableCard
+            zone={card.zone}
             key={id}
             id={id}
             updateCard={(x, y, newRotation) =>
@@ -80,7 +94,32 @@ function BattleGround() {
           />
         );
       })}
-      {ShowHand && <HandZone />}
+      {ShowHand && (
+        <>
+          <HandZone />
+          {Cards.map((card, id) => {
+            if (card.zone !== "hand") return;
+            return (
+              <DraggableCard
+                zone={card.zone}
+                style={{ zIndex: 12 }}
+                key={id}
+                id={id}
+                updateCard={(x, y, newRotation) =>
+                  updateCard(id, x, y, newRotation)
+                }
+                deleteCard={() => deleteCard(id)}
+                popUp={(image) => setModal(image)}
+                imageCardSmall={card.imageCardSmall}
+                imageCardNormal={card.imageCardNormal}
+                posX={card.posX}
+                posY={card.posY}
+                rotation={card.rotation}
+              />
+            );
+          })}
+        </>
+      )}
     </>
   );
 }
