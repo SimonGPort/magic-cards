@@ -26,6 +26,14 @@ function BattleGround() {
     },
   ]);
 
+  const updateCard = (id, x, y) => {
+    setCards((prevCards) =>
+      prevCards.map((card, index) =>
+        index === id ? { ...card, posX: x, posY: y } : card,
+      ),
+    );
+  };
+
   return (
     <>
       {Modal && <PopUp image={Modal} onClose={() => setModal(undefined)} />}
@@ -49,12 +57,13 @@ function BattleGround() {
       {Cards.map((card, id) => {
         return (
           <DraggableCard
-            key={id}
+            id={id}
+            updateCard={(x, y) => updateCard(id, x, y)}
             popUp={(image) => setModal(image)}
             imageCardSmall={card.imageCardSmall}
             imageCardNormal={card.imageCardNormal}
-            startX={card.posX}
-            startY={card.posY}
+            posX={card.posX}
+            posY={card.posY}
           />
         );
       })}

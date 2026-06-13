@@ -1,19 +1,17 @@
 import { useState, useEffect } from "react";
 
 export default function DraggableCard({
+  id,
   imageCardSmall,
   imageCardNormal,
-  startX,
-  startY,
+  posX,
+  posY,
   popUp,
+  updateCard,
 }) {
-  const [position, setPosition] = useState(() => ({
-    x: startX,
-    y: startY,
-  }));
   const [dragging, setDragging] = useState(false);
-  const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [rotation, setRotation] = useState(0);
+  const [offset, setOffset] = useState({ x: 0, y: 0 });
 
   const [show, setShow] = useState(true);
 
@@ -21,10 +19,7 @@ export default function DraggableCard({
     const handleMove = (e) => {
       if (!dragging) return;
 
-      setPosition({
-        x: e.clientX - offset.x,
-        y: e.clientY - offset.y,
-      });
+      updateCard(e.clientX - offset.x, e.clientY - offset.y);
     };
 
     const handleUp = () => {
@@ -38,7 +33,7 @@ export default function DraggableCard({
       window.removeEventListener("mousemove", handleMove);
       window.removeEventListener("mouseup", handleUp);
     };
-  }, [dragging, offset]);
+  }, [dragging, offset.x, offset.y, id, updateCard]);
 
   const rotateCard = () => {
     switch (rotation) {
@@ -67,17 +62,8 @@ export default function DraggableCard({
     setDragging(true);
 
     setOffset({
-      x: e.clientX - position.x,
-      y: e.clientY - position.y,
-    });
-  };
-
-  const handleMouseMove = (e) => {
-    if (!dragging) return;
-
-    setPosition({
-      x: e.clientX - offset.x,
-      y: e.clientY - offset.y,
+      x: e.clientX - posX,
+      y: e.clientY - posY,
     });
   };
 
@@ -91,8 +77,8 @@ export default function DraggableCard({
         <div
           style={{
             position: "absolute",
-            left: position.x,
-            top: position.y,
+            left: posX,
+            top: posY,
             cursor: dragging ? "grabbing" : "grab",
             transform: `rotate(${rotation}deg)`,
             zIndex: dragging ? 999 : 1,
