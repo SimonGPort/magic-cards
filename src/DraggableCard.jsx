@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import PopUp from "./PopUp";
 
 export default function DraggableCard({
   imageCardSmall,
   imageCardNormal,
   startX,
   startY,
+  popUp,
 }) {
   const [position, setPosition] = useState(() => ({
     x: startX,
@@ -14,7 +14,7 @@ export default function DraggableCard({
   const [dragging, setDragging] = useState(false);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [rotation, setRotation] = useState(0);
-  const [Modal, setModal] = useState(false);
+
   const [show, setShow] = useState(true);
 
   useEffect(() => {
@@ -98,10 +98,6 @@ export default function DraggableCard({
             zIndex: dragging ? 999 : 1,
           }}
         >
-          {Modal && (
-            <PopUp image={imageCardNormal} onClose={() => setModal(false)} />
-          )}
-
           {/* DRAG AREA */}
           <div onMouseDown={handleMouseDown}>
             {/* Top-left controls */}
@@ -129,7 +125,7 @@ export default function DraggableCard({
               <div
                 onClick={(e) => {
                   e.stopPropagation();
-                  setModal(true);
+                  popUp(imageCardNormal);
                 }}
                 style={{
                   width: 10,

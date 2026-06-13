@@ -4,7 +4,6 @@ import "./App.css";
 function PopUp({ image, onClose }) {
   return (
     <div
-      //   onClick={onClose}
       onClick={() => onClose()}
       style={{
         position: "fixed",
