@@ -1,10 +1,12 @@
 import { useState } from "react";
+import PopUp from "./PopUp";
 
 export default function DraggableCard({ imageCardSmall, imageCardNormal }) {
   const [position, setPosition] = useState({ x: 100, y: 100 });
   const [dragging, setDragging] = useState(false);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [rotation, setRotation] = useState(0);
+  const [Modal, setModal] = useState(false);
 
   const rotateCard = () => {
     switch (rotation) {
@@ -60,6 +62,14 @@ export default function DraggableCard({ imageCardSmall, imageCardNormal }) {
         position: "relative",
       }}
     >
+      {Modal && (
+        <PopUp
+          image={imageCardNormal}
+          onClose={() => {
+            setModal(false);
+          }}
+        />
+      )}
       <div
         onMouseDown={handleMouseDown}
         style={{
@@ -100,6 +110,10 @@ export default function DraggableCard({ imageCardSmall, imageCardNormal }) {
               borderRadius: "50%",
               backgroundColor: "yellow",
               cursor: "pointer",
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
+              setModal(true);
             }}
           />
 
