@@ -97,7 +97,8 @@ export default function DraggableCard({
               zIndex: 10,
             }}
           >
-            <div
+            {/* To delete the card */}
+            {/* <div
               onClick={() => deleteCard()}
               style={{
                 width: 10,
@@ -106,7 +107,7 @@ export default function DraggableCard({
                 backgroundColor: "red",
                 cursor: "pointer",
               }}
-            />
+            /> */}
 
             <div
               onClick={(e) => {
