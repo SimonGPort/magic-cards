@@ -55,6 +55,42 @@ function BattleGround() {
     },
   ]);
 
+  const [Deck, setDeck] = useState([
+    {
+      imageCardSmall:
+        "https://cards.scryfall.io/small/front/b/d/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd.jpg?1614638838",
+      imageCardNormal:
+        "https://cards.scryfall.io/normal/front/b/d/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd.jpg?1614638838",
+      posX: 100,
+      posY: 550,
+      rotation: 0,
+      zone: "hand",
+      player: 1,
+    },
+    {
+      imageCardSmall:
+        "https://cards.scryfall.io/small/front/b/d/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd.jpg?1614638838",
+      imageCardNormal:
+        "https://cards.scryfall.io/normal/front/b/d/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd.jpg?1614638838",
+      posX: 100,
+      posY: 550,
+      rotation: 0,
+      zone: "hand",
+      player: 1,
+    },
+    {
+      imageCardSmall:
+        "https://cards.scryfall.io/small/front/b/d/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd.jpg?1614638838",
+      imageCardNormal:
+        "https://cards.scryfall.io/normal/front/b/d/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd.jpg?1614638838",
+      posX: 300,
+      posY: 550,
+      rotation: 0,
+      zone: "hand",
+      player: 2,
+    },
+  ]);
+
   const updateCard = (id, x, y, newRotation) => {
     setCards((prevCards) =>
       prevCards.map((card, index) =>
@@ -88,6 +124,20 @@ function BattleGround() {
     );
   };
 
+  const draw = () => {
+    const cardToDraw = Deck.find((card) => card.player === playerTurn);
+
+    if (!cardToDraw) return;
+
+    setDeck((prevDeck) => {
+      const index = prevDeck.findIndex((card) => card.player === playerTurn);
+
+      return prevDeck.filter((_, i) => i !== index);
+    });
+
+    setCards((prevCards) => [...prevCards, cardToDraw]);
+  };
+
   return (
     <>
       {Modal && <PopUp image={Modal} onClose={() => setModal(undefined)} />}
@@ -104,6 +154,7 @@ function BattleGround() {
           backgroundSize: "contain",
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
+          border: "2px solid black",
           cursor: "pointer",
           zIndex: 9998,
         }}
@@ -134,6 +185,26 @@ function BattleGround() {
       >
         {playerTurn}
       </div>
+      <div
+        onClick={() => {
+          draw();
+        }}
+        style={{
+          cursor: "pointer",
+          position: "fixed",
+          top: 20,
+          right: 150,
+          width: 50,
+          height: 50,
+          backgroundColor: "yellow",
+          backgroundImage: "url('/card.svg')",
+          backgroundSize: "contain",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          border: "2px solid black",
+          zIndex: 9998,
+        }}
+      />
       {Cards.map((card, id) => {
         if (card.zone !== "play") return;
         return (
