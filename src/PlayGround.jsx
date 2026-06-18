@@ -7,6 +7,7 @@ import "./App.css";
 function BattleGround() {
   const [Modal, setModal] = useState(undefined);
   const [ShowHand, setShowHand] = useState(false);
+  const [playerTurn, setPlayerTurn] = useState(1);
   const [Cards, setCards] = useState([
     {
       imageCardSmall:
@@ -17,6 +18,7 @@ function BattleGround() {
       posY: 100,
       rotation: 0,
       zone: "play",
+      player: 1,
     },
     {
       imageCardSmall:
@@ -27,6 +29,7 @@ function BattleGround() {
       posY: 300,
       rotation: 0,
       zone: "play",
+      player: 1,
     },
     {
       imageCardSmall:
@@ -37,6 +40,18 @@ function BattleGround() {
       posY: 550,
       rotation: 0,
       zone: "hand",
+      player: 1,
+    },
+    {
+      imageCardSmall:
+        "https://cards.scryfall.io/small/front/b/d/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd.jpg?1614638838",
+      imageCardNormal:
+        "https://cards.scryfall.io/normal/front/b/d/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd.jpg?1614638838",
+      posX: 300,
+      posY: 550,
+      rotation: 0,
+      zone: "hand",
+      player: 2,
     },
   ]);
 
@@ -93,6 +108,32 @@ function BattleGround() {
           zIndex: 9998,
         }}
       />
+      <div
+        onClick={() => {
+          setShowHand(false);
+          if (playerTurn === 1) setPlayerTurn(2);
+          else setPlayerTurn(1);
+        }}
+        style={{
+          cursor: "pointer",
+          position: "fixed",
+          top: 20,
+          right: 20,
+          width: 50,
+          height: 50,
+          backgroundColor: "yellow",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontSize: "20px",
+          fontWeight: "bold",
+          border: "2px solid black",
+          borderRadius: "4px",
+          zIndex: 9998,
+        }}
+      >
+        {playerTurn}
+      </div>
       {Cards.map((card, id) => {
         if (card.zone !== "play") return;
         return (
@@ -119,6 +160,7 @@ function BattleGround() {
           <HandZone />
           {Cards.map((card, id) => {
             if (card.zone !== "hand") return;
+            if (card.player !== playerTurn) return;
             return (
               <DraggableCard
                 changeZone={() => changeZone(id)}
