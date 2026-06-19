@@ -21,38 +21,49 @@ function Construction({ deck, setDeck, cards, setCards }) {
       {stage === "dates" && (
         <>
           <h1>Which generation is it?</h1>
-          <input
-            style={{ width: "125px", marginBottom: "20px" }}
-            type="date"
-            value={dates.date1 || ""}
-            onChange={(e) =>
-              setDates((prev) => ({
-                ...prev,
-                date1: e.target.value,
-              }))
-            }
-          />
-
-          <input
-            style={{ width: "125px", marginBottom: "20px" }}
-            type="date"
-            value={dates.date2 || ""}
-            onChange={(e) =>
-              setDates((prev) => ({
-                ...prev,
-                date2: e.target.value,
-              }))
-            }
-          />
-          <button
-            style={{ width: "125px" }}
-            onClick={() => {
-              if (!dates.date1 || !dates.date2) return;
-              fetchCards();
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              height: "100vh",
+              gap: "10px",
             }}
           >
-            Go
-          </button>
+            <input
+              style={{ width: "125px", marginBottom: "20px" }}
+              type="date"
+              value={dates.date1 || ""}
+              onChange={(e) =>
+                setDates((prev) => ({
+                  ...prev,
+                  date1: e.target.value,
+                }))
+              }
+            />
+
+            <input
+              style={{ width: "125px", marginBottom: "20px" }}
+              type="date"
+              value={dates.date2 || ""}
+              onChange={(e) =>
+                setDates((prev) => ({
+                  ...prev,
+                  date2: e.target.value,
+                }))
+              }
+            />
+            <button
+              style={{ width: "125px" }}
+              onClick={() => {
+                if (!dates.date1 || !dates.date2) return;
+                fetchCards();
+              }}
+            >
+              Go
+            </button>
+          </div>
         </>
       )}
     </>
