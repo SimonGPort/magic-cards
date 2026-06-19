@@ -136,8 +136,8 @@ function BattleGround({ deck, setDeck, cards, setCards }) {
             }
             deleteCard={() => deleteCard(id)}
             popUp={(image) => setModal(image)}
-            imageCardSmall={card.imageCardSmall}
-            imageCardNormal={card.imageCardNormal}
+            imageSmall={card.imageSmall}
+            imageNormal={card.imageNormal}
             posX={card.posX}
             posY={card.posY}
             rotation={card.rotation}
@@ -162,8 +162,8 @@ function BattleGround({ deck, setDeck, cards, setCards }) {
                 }
                 deleteCard={() => deleteCard(id)}
                 popUp={(image) => setModal(image)}
-                imageCardSmall={card.imageCardSmall}
-                imageCardNormal={card.imageCardNormal}
+                imageSmall={card.imageSmall}
+                imageNormal={card.imageNormal}
                 posX={card.posX}
                 posY={card.posY}
                 rotation={card.rotation}

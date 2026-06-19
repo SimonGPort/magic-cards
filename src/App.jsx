@@ -10,9 +10,9 @@ function App() {
   const [stage, setStage] = useState("construction");
   const [cards, setCards] = useState([
     {
-      imageCardSmall:
+      imageSmall:
         "https://cards.scryfall.io/small/front/b/d/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd.jpg?1614638838",
-      imageCardNormal:
+      imageNormal:
         "https://cards.scryfall.io/normal/front/b/d/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd.jpg?1614638838",
       posX: 100,
       posY: 100,
@@ -21,9 +21,9 @@ function App() {
       player: 1,
     },
     {
-      imageCardSmall:
+      imageSmall:
         "https://cards.scryfall.io/small/front/b/d/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd.jpg?1614638838",
-      imageCardNormal:
+      imageNormal:
         "https://cards.scryfall.io/normal/front/b/d/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd.jpg?1614638838",
       posX: 300,
       posY: 300,
@@ -32,9 +32,9 @@ function App() {
       player: 1,
     },
     {
-      imageCardSmall:
+      imageSmall:
         "https://cards.scryfall.io/small/front/b/d/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd.jpg?1614638838",
-      imageCardNormal:
+      imageNormal:
         "https://cards.scryfall.io/normal/front/b/d/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd.jpg?1614638838",
       posX: 100,
       posY: 550,
@@ -43,9 +43,9 @@ function App() {
       player: 1,
     },
     {
-      imageCardSmall:
+      imageSmall:
         "https://cards.scryfall.io/small/front/b/d/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd.jpg?1614638838",
-      imageCardNormal:
+      imageNormal:
         "https://cards.scryfall.io/normal/front/b/d/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd.jpg?1614638838",
       posX: 300,
       posY: 550,
@@ -57,9 +57,9 @@ function App() {
 
   const [deck, setDeck] = useState([
     {
-      imageCardSmall:
+      imageSmall:
         "https://cards.scryfall.io/small/front/b/d/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd.jpg?1614638838",
-      imageCardNormal:
+      imageNormal:
         "https://cards.scryfall.io/normal/front/b/d/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd.jpg?1614638838",
       posX: 100,
       posY: 550,
@@ -68,9 +68,9 @@ function App() {
       player: 1,
     },
     {
-      imageCardSmall:
+      imageSmall:
         "https://cards.scryfall.io/small/front/b/d/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd.jpg?1614638838",
-      imageCardNormal:
+      imageNormal:
         "https://cards.scryfall.io/normal/front/b/d/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd.jpg?1614638838",
       posX: 100,
       posY: 550,
@@ -79,9 +79,9 @@ function App() {
       player: 1,
     },
     {
-      imageCardSmall:
+      imageSmall:
         "https://cards.scryfall.io/small/front/b/d/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd.jpg?1614638838",
-      imageCardNormal:
+      imageNormal:
         "https://cards.scryfall.io/normal/front/b/d/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd.jpg?1614638838",
       posX: 300,
       posY: 550,
@@ -94,12 +94,7 @@ function App() {
   return (
     <>
       {stage === "construction" && (
-        <Construction
-          cards={cards}
-          setCards={setCards}
-          deck={deck}
-          setDeck={setDeck}
-        />
+        <Construction deck={deck} setDeck={setDeck} />
       )}
       {stage === "play" && (
         <BattleGround

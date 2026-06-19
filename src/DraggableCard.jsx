@@ -6,8 +6,8 @@ export default function DraggableCard({
   deleteCard,
   rotation,
   id,
-  imageCardSmall,
-  imageCardNormal,
+  imageSmall,
+  imageNormal,
   posX,
   posY,
   popUp,
@@ -126,7 +126,7 @@ export default function DraggableCard({
             <div
               onClick={(e) => {
                 e.stopPropagation();
-                popUp(imageCardNormal);
+                popUp(imageNormal);
               }}
               style={{
                 width: 10,
@@ -166,7 +166,12 @@ export default function DraggableCard({
             />
           </div>
 
-          <img src={imageCardSmall} alt="Magic Card" draggable={false} />
+          <img
+            src={imageSmall}
+            alt="Magic Card"
+            draggable={false}
+            className="card"
+          />
         </div>
       </div>
     </>
