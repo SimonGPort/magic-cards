@@ -3,9 +3,11 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "./assets/vite.svg";
 import heroImg from "./assets/hero.png";
 import BattleGround from "./PlayGround";
+import Construction from "./Construction";
 import "./App.css";
 
 function App() {
+  const [stage, setStage] = useState("construction");
   const [cards, setCards] = useState([
     {
       imageCardSmall:
@@ -91,12 +93,22 @@ function App() {
 
   return (
     <>
-      <BattleGround
-        cards={cards}
-        setCards={setCards}
-        deck={deck}
-        setDeck={setDeck}
-      />
+      {stage === "construction" && (
+        <Construction
+          cards={cards}
+          setCards={setCards}
+          deck={deck}
+          setDeck={setDeck}
+        />
+      )}
+      {stage === "play" && (
+        <BattleGround
+          cards={cards}
+          setCards={setCards}
+          deck={deck}
+          setDeck={setDeck}
+        />
+      )}
     </>
   );
 }
